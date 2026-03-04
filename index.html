@@ -1,0 +1,154 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tienda de Informatica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="bg-shapes" aria-hidden="true">
+    <span class="shape one"></span>
+    <span class="shape two"></span>
+  </div>
+
+  <header class="topbar">
+    <div class="brand-wrap">
+      <div class="brand-mark">TM</div>
+      <div>
+        <div class="brand">TechMarket GT</div>
+        <small>Carrito Pro de Informatica</small>
+      </div>
+    </div>
+
+    <div class="topbar-actions">
+      <label class="currency-switch">
+        Moneda
+        <select id="currencySelect" aria-label="Seleccionar moneda">
+          <option value="GTQ">Quetzales (Q)</option>
+          <option value="USD">Dolares ($)</option>
+        </select>
+      </label>
+
+      <button id="themeToggle" class="btn secondary" type="button">Modo Oscuro</button>
+
+      <button id="cartButton" class="cart-button" type="button" aria-label="Abrir carrito">
+        <span class="cart-icon">&#128722;</span>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="products-section">
+      <article class="hero">
+        <p class="badge">Nuevos ingresos</p>
+        <h1>Tienda de Productos de Informatica</h1>
+        <p class="hero-copy">Explora hardware y perifericos con vista previa de especificaciones, compra en carrito y genera tu recibo en PDF.</p>
+      </article>
+
+      <section class="banners-row" aria-label="Banners promocionales">
+        <article class="promo-banner">
+          <p class="promo-kicker">Oferta Flash</p>
+          <h3>Hasta 25% en perifericos</h3>
+          <p>Mouse, teclados y audifonos con descuento por tiempo limitado.</p>
+        </article>
+        <article class="promo-banner alt">
+          <p class="promo-kicker">Envio Express</p>
+          <h3>Entrega el mismo dia</h3>
+          <p>Disponible en zonas seleccionadas de la ciudad de Guatemala.</p>
+        </article>
+      </section>
+
+      <div class="section-head">
+        <div>
+          <h2>Catalogo</h2>
+          <small id="resultsInfo">0 productos</small>
+        </div>
+        <input id="searchInput" type="search" placeholder="Buscar por nombre..." aria-label="Buscar producto" />
+      </div>
+
+      <div id="productsGrid" class="products-grid"></div>
+    </section>
+
+    <aside class="cart-panel" id="cartPanel">
+      <h2>Resumen de Compra</h2>
+      <p class="cart-note">Administra cantidades y finaliza tu pedido.</p>
+      <div id="cartItems" class="cart-items"></div>
+      <div class="cart-footer">
+        <p>Total a pagar: <strong id="totalPrice">Q 0.00</strong></p>
+        <div class="cart-actions">
+          <button id="clearCart" class="btn danger" type="button">Vaciar carrito</button>
+          <button id="checkoutBtn" class="btn" type="button">Pagar ahora</button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <section id="previewModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-content">
+      <button id="closePreview" class="close" type="button" aria-label="Cerrar">×</button>
+      <img id="previewImage" alt="Vista previa del producto" />
+      <h3 id="previewName"></h3>
+      <p id="previewSpecs"></p>
+    </div>
+  </section>
+
+  <section id="paymentModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-content large">
+      <button id="closePayment" class="close" type="button" aria-label="Cerrar">×</button>
+      <h3>Formulario de Pago</h3>
+
+      <form id="paymentForm" novalidate>
+        <label>Nombre completo
+          <input id="fullName" type="text" required />
+        </label>
+        <label>Correo electronico
+          <input id="email" type="email" required />
+        </label>
+
+        <label>Metodo de pago
+          <select id="paymentMethod" required>
+            <option value="">Selecciona una opcion</option>
+            <option value="entrega">Efectivo contra entrega</option>
+            <option value="tarjeta">Pago con tarjeta</option>
+          </select>
+        </label>
+
+        <div id="deliveryFields" class="payment-block hidden">
+          <label>Direccion
+            <input id="address" type="text" />
+          </label>
+          <label>Telefono
+            <input id="phone" type="tel" />
+          </label>
+          <label>Referencia de casa
+            <input id="reference" type="text" />
+          </label>
+        </div>
+
+        <div id="cardFields" class="payment-block hidden">
+          <label>Numero de tarjeta
+            <input id="cardNumber" type="text" maxlength="19" placeholder="1234 5678 9012 3456" />
+          </label>
+          <label>Fecha de vencimiento
+            <input id="cardExpiry" type="month" />
+          </label>
+          <label>CVV
+            <input id="cardCVV" type="text" maxlength="4" />
+          </label>
+        </div>
+
+        <button class="btn" type="submit">Confirmar pago</button>
+      </form>
+    </div>
+  </section>
+</body>
+</html>
+
+
